@@ -3,11 +3,11 @@ package com.gabeefranco;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventosController {
+public class CadastroEventos {
   private List<Evento> eventos;
   private Long lastId = 0L;
 
-  public EventosController() {
+  public CadastroEventos() {
     eventos = new ArrayList<>();
   }
 

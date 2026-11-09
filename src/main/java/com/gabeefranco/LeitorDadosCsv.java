@@ -38,11 +38,11 @@ public final class LeitorDadosCsv {
         }
     }
 
-    public static List<Evento> lerEventos(Path arquivo) throws IOException {
+    public static List<CriarEventoDTO> lerEventos(Path arquivo) throws IOException {
         return lerLinhas(arquivo, 8).stream()
-                .map(c -> new Evento(c[0], c[1], c[2],
-                        LocalDate.parse(c[3]), c[4], Integer.parseInt(c[5]),
-                        new BigDecimal(c[6]), java.time.LocalTime.parse(c[7])))
+                .map(c -> new CriarEventoDTO(c[1], c[2], c[4],
+                        LocalDate.parse(c[3]), java.time.LocalTime.parse(c[7]),
+                        Integer.parseInt(c[5]), new BigDecimal(c[6])))
                 .toList();
     }
 

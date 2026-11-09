@@ -1,5 +1,4 @@
 # TF_POO
-
 Projeto criado automaticamente com:
 
 - Java 25
@@ -19,32 +18,7 @@ Depois acesse:
 http://localhost:8080
 ```
 
-## Executar os testes
+## Decisões de desenvolvimento
 
-```bash
-mvn test
-```
-
-## Gerar pacote de desenvolvimento
-
-```bash
-mvn clean package
-```
-
-## Gerar pacote de produção
-
-```bash
-mvn clean package -Pproduction
-```
-
-O arquivo gerado estará em:
-
-```text
-target/TF_POO-1.0-SNAPSHOT.jar
-```
-
-## Executar o JAR
-
-```bash
-java -jar target/TF_POO-1.0-SNAPSHOT.jar
-```
+1. Alterar o formato dos IDS. Exemplo: `E001` -> `E1`. Utilizou-se `consertar_ids.py` para atualizar os CSVs.
+2. 

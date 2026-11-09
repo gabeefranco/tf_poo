@@ -89,6 +89,14 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.6.4</version>
+            <configuration>
+                <mainClass>com.gabeefranco.App</mainClass>
+            </configuration>
+      </plugin>
 
     </plugins>
   </build>

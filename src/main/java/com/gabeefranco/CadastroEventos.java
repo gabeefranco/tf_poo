@@ -12,7 +12,9 @@ public class CadastroEventos {
   }
 
   public void criarEvento(CriarEventoDTO dto) {
-    
+    String id = "E" + ++lastId;
+    Evento e = new Evento(id, dto.titulo(), dto.descricao(), dto.data(), dto.local(), dto.capacidadeMaxima(), dto.precoBase(), dto.horarioInicio());
+    eventos.add(e);
   }
 
   public List<Evento> getEventos() {

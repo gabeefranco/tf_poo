@@ -1,6 +1,6 @@
 package com.gabeefranco;
 
-public class VendasController {
+public class CadastroVendas {
 
   
 }

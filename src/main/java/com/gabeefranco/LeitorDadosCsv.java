@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.gabeefranco.dto.CriarEventoDTO;
+import com.gabeefranco.entidades.Promocao;
+import com.gabeefranco.entidades.Venda;
+
 /**
  * Exemplo didatico de leitura de arquivos CSV simples, separados por ponto e virgula.
  * Nao trata campos com delimitadores escapados ou entre aspas.

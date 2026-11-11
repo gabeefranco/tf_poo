@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

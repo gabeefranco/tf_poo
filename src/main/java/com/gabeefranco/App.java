@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.gabeefranco.cadastros.CadastroEventos;
+
 @SpringBootApplication
 public class App {
 

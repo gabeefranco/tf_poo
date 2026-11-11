@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.entidades;
 import java.math.BigDecimal;
 public class IngressoMeia extends Ingresso {
     public IngressoMeia(String id, String vendaId, String participanteNome, String participanteCpf, String justificativa){

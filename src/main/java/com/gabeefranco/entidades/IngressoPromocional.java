@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.entidades;
 import java.math.BigDecimal;
 public class IngressoPromocional extends Ingresso {
     private int descontopercentual;

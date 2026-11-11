@@ -1,7 +1,11 @@
-package com.gabeefranco;
+package com.gabeefranco.cadastros;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.gabeefranco.MetodoConsultaEventos;
+import com.gabeefranco.dto.CriarEventoDTO;
+import com.gabeefranco.entidades.Evento;
 
 public class CadastroEventos {
   private List<Evento> eventos;

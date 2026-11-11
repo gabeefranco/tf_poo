@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.dto;
 
 import java.time.LocalDateTime;
 

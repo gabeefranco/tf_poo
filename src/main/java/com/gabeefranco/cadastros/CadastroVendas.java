@@ -1,7 +1,10 @@
-package com.gabeefranco;
+package com.gabeefranco.cadastros;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.gabeefranco.dto.CriarVendaDTO;
+import com.gabeefranco.entidades.Venda;
 
 
 public class CadastroVendas {

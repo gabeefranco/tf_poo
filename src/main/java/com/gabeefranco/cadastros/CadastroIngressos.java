@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.cadastros;
 
 public class CadastroIngressos {
 

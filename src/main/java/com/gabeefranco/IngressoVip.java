@@ -1,15 +1,15 @@
+package com.gabeefranco;
 import java.math.BigDecimal;
 
 public class IngressoVip extends Ingresso{
 
-    public IngressoVip(String id, String vendaId, String participanteNome, String participanteCpf, String justificativa){
+    public IngressoVip(String id, String vendaId, String participanteNome, String participanteCpf){
       
         this.id = id;
         this.vendaId = vendaId;
         modalidade = "VIP";
         this.participanteNome = participanteNome;
         this.participanteCpf = participanteCpf;
-        this.justificativa = justificativa;
     }
 
     @Override 

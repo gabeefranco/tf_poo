@@ -22,7 +22,7 @@ public class CadastroEventos {
   }
 
   public List<Evento> consultaEventos(MetodoConsultaEventos metodo) {
-    return null;
+    return metodo.consulta(eventos);
   }
   
 }

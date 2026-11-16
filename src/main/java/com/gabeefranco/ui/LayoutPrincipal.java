@@ -17,8 +17,7 @@ public class LayoutPrincipal extends AppLayout {
         menu.addItem(new SideNavItem("Eventos", EventosView.class, VaadinIcon.CALENDAR.create()));
         menu.addItem(new SideNavItem("Novo evento", CadastroEventoView.class, VaadinIcon.PLUS.create()));
         menu.addItem(new SideNavItem("Nova venda", VendaView.class, VaadinIcon.TICKET.create()));
-        menu.addItem(new SideNavItem("Vendas do evento", VendasEventoView.class, VaadinIcon.CART.create()));
-        menu.addItem(new SideNavItem("Consultas gerenciais", ConsultasView.class, VaadinIcon.CHART.create()));
+        menu.addItem(new SideNavItem("Ranking de eventos", RankingEventosView.class, VaadinIcon.TROPHY.create()));
 
         addToNavbar(new DrawerToggle(), titulo);
         addToDrawer(menu);

@@ -15,4 +15,12 @@ public class CadastroPromocoes {
     public List<Promocao> getPromocoes(String eventoId){
         return promocoes.stream().filter(p -> p.eventoId().equals(eventoId)).toList();
     }
+    public Promocao getPromocaoPorEvento(String eventoId){
+      for(Promocao p : promocoes) {
+        if(p.eventoId().equals(eventoId)) {
+          return p;
+        }
+      }
+      return null;
+    }
 }

@@ -24,4 +24,14 @@ public class CadastroVendas {
   public List<Venda> getVendas(String eventoId) {
     return vendas.stream().filter(v -> v.eventoId().equals(eventoId)).toList();
   }
+
+  public Venda getVendaPorId(String vendaId) {
+    for(Venda v : vendas) {
+      if(v.id().equals(vendaId)) {
+        return v;
+      }
+    }
+
+    return null;
+  }
 }

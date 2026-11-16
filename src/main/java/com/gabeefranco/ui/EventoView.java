@@ -144,7 +144,6 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
     private void atualizarVendas(Evento evento) {
         // TODO: buscar as vendas do evento e preencher a disponibilidade geral e promocional.
         gridVendas.setItems();
-        gridIngressos.setItems();
     }
 
     private void atualizarIngressos(Venda venda) {

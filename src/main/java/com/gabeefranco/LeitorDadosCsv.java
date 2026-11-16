@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.gabeefranco.dto.CriarEventoDTO;
+import com.gabeefranco.dto.CriarIngressoDTO;
+import com.gabeefranco.dto.CriarVendaDTO;
 import com.gabeefranco.entidades.Promocao;
-import com.gabeefranco.entidades.Venda;
 
 /**
  * Exemplo didatico de leitura de arquivos CSV simples, separados por ponto e virgula.
@@ -57,15 +58,15 @@ public final class LeitorDadosCsv {
                 .toList();
     }
 
-    public static List<Venda> lerVendas(Path arquivo) throws IOException {
+    public static List<CriarVendaDTO> lerVendas(Path arquivo) throws IOException {
         return lerLinhas(arquivo, 4).stream()
-                .map(c -> new Venda(c[0], c[1], c[2], LocalDateTime.parse(c[3])))
+                .map(c -> new CriarVendaDTO(c[1], c[2], LocalDateTime.parse(c[3])))
                 .toList();
     }
 
-    public static List<IngressoCsv> lerIngressos(Path arquivo) throws IOException {
+    public static List<CriarIngressoDTO> lerIngressos(Path arquivo) throws IOException {
         return lerLinhas(arquivo, 6).stream()
-                .map(c -> new IngressoCsv(c[0], c[1], c[2], c[3], c[4], c[5]))
+                .map(c -> new CriarIngressoDTO(c[1], c[2], c[3], c[4], c[5]))
                 .toList();
     }
 }

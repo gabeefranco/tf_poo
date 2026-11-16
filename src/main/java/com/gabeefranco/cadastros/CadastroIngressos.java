@@ -3,12 +3,14 @@ package com.gabeefranco.cadastros;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gabeefranco.Sistema;
 import com.gabeefranco.dto.CriarIngressoDTO;
 import com.gabeefranco.entidades.Ingresso;
 import com.gabeefranco.entidades.IngressoInteira;
 import com.gabeefranco.entidades.IngressoMeia;
 import com.gabeefranco.entidades.IngressoPromocional;
 import com.gabeefranco.entidades.IngressoVip;
+import com.gabeefranco.entidades.Venda;
 
 public class CadastroIngressos {
   private List<Ingresso> ingressos;
@@ -30,7 +32,9 @@ public class CadastroIngressos {
         i = new IngressoMeia(id, dto.vendaId(), dto.nomeParticipante(), dto.cpfParticipante(), dto.justificativa());
         break;
       case "PROMOCIONAL":
-        i = new IngressoPromocional(id, dto.vendaId(), dto.nomeParticipante(), dto.cpfParticipante(), dto.descontoPercentual());
+        String eventoId = Sistema.getCadastroVendas().getVendaPorId(dto.vendaId()).eventoId();
+        int descontoPercentual = Sistema.getCadastroPromocoes().getPromocaoPorEvento(eventoId).descontoPromocionalPercentual();
+        i = new IngressoPromocional(id, dto.vendaId(), dto.nomeParticipante(), dto.cpfParticipante(), descontoPercentual);
         break;
       case "INTEIRA":
         i = new IngressoInteira(id, dto.vendaId(), dto.nomeParticipante(), dto.cpfParticipante());

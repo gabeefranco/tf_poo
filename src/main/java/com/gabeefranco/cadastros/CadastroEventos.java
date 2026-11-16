@@ -3,7 +3,7 @@ package com.gabeefranco.cadastros;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gabeefranco.MetodoConsultaEventos;
+import com.gabeefranco.consultas.MetodoConsultaEventos;
 import com.gabeefranco.dto.CriarEventoDTO;
 import com.gabeefranco.entidades.Evento;
 

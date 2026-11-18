@@ -12,7 +12,7 @@ public class IngressoPromocional extends Ingresso {
     }
     @Override 
     public BigDecimal calcularPreco(BigDecimal precoBase){
-        BigDecimal precopromocional = precoBase.multiply(new BigDecimal((1-(descontopercentual/100))));
+        BigDecimal precopromocional = precoBase.multiply(new BigDecimal((1-(descontopercentual/100.0))));
         return precopromocional;
     }
     public boolean permiteEntradaAntecipada(){

@@ -1,8 +1,15 @@
 package com.gabeefranco.ui;
 
+import java.util.List;
+
+import com.gabeefranco.Sistema;
+import com.gabeefranco.cadastros.CadastroVendas;
 import com.gabeefranco.entidades.Evento;
 import com.gabeefranco.entidades.Ingresso;
+import com.gabeefranco.entidades.Promocao;
 import com.gabeefranco.entidades.Venda;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -123,15 +130,14 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
 
     @Override
     public void setParameter(BeforeEvent event, String eventoId) {
-        // TODO: buscar o evento pelo id no domínio; se não existir, mostrar Notification de erro
-        //       (ou voltar para a lista de eventos).
-        Evento evento = null;
+        Evento evento = Sistema.getCadastroEventos().getEventoPorId(eventoId);
         if (evento == null) {
+            Notification.show("Evento não encontrado", 4000, Position.TOP_CENTER);
             titulo.setText("Evento não encontrado: " + eventoId);
             return;
-        }
-        mostrarEvento(evento);
     }
+        mostrarEvento(evento);
+}
 
     private void mostrarEvento(Evento evento) {
         titulo.setText(evento.titulo());
@@ -142,8 +148,28 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
     }
 
     private void atualizarVendas(Evento evento) {
-        // TODO: buscar as vendas do evento e preencher a disponibilidade geral e promocional.
-        gridVendas.setItems();
+        List<Venda> vendas = Sistema.getCadastroVendas().getVendas(evento.id());
+        gridVendas.setItems(vendas);
+        int vendidos = 0;
+        int promocionaisVendidos = 0;
+        for(Venda v: vendas){
+            for(Ingresso i: Sistema.getCadastroIngressos().getIngressos(v.id())){
+                vendidos ++;
+                if(i.getModalidade().equalsIgnoreCase("Promocional")){
+                    promocionaisVendidos++;
+                }
+            }
+        }
+        int vagas= evento.capacidade()-vendidos;
+        disponibilidadeGeral.setText("Vagas disponíveis: " + vagas);
+        Promocao promocao= Sistema.getCadastroPromocoes().getPromocaoPorEvento(evento.id());
+        if(promocao==null){
+            disponibilidadePromocional.setText("Não a disponibilidade de ingresso promocional");
+        }
+        else{
+            int restantes = promocao.limitePromocional()- promocionaisVendidos;
+            disponibilidadePromocional.setText("Ingressos promocionais disponíveis: " + restantes);
+        }
     }
 
     private void atualizarIngressos(Venda venda) {

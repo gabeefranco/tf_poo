@@ -29,5 +29,12 @@ public class CadastroEventos {
   public List<Evento> consultaEventos(MetodoConsultaEventos metodo) {
     return metodo.consulta(eventos);
   }
-  
+  public Evento getEventoPorId(String eventoid){
+      for(Evento e : eventos){
+        if(e.id().equals(eventoid)){
+          return e;
+        }
+      }
+      return null;
+  }
 }

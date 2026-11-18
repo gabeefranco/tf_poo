@@ -81,7 +81,7 @@ public class CadastroEventoView extends VerticalLayout {
           Notification.show("Título não informado", 4000, Position.TOP_CENTER);
           return;
         }
-        if(local.getValue() == null || titulo.getValue().strip().equals("")) {
+        if(local.getValue() == null || local.getValue().strip().equals("")) {
           Notification.show("Local não informado", 4000, Position.TOP_CENTER);
           return;
         }
@@ -97,7 +97,7 @@ public class CadastroEventoView extends VerticalLayout {
           Notification.show("Capacidade máxima não informada", 4000, Position.TOP_CENTER);
           return;
         }
-        if(precoBase.getValue() == null || precoBase.getValue().equals(new BigDecimal(0.0f))) {
+        if(precoBase.getValue() == null || precoBase.getValue().compareTo(BigDecimal.ZERO) <= 0) {
           Notification.show("Preço-base não informado", 4000, Position.TOP_CENTER);
           return;
         }

@@ -15,10 +15,11 @@ public class CadastroEventos {
     eventos = new ArrayList<>();
   }
 
-  public void criarEvento(CriarEventoDTO dto) {
+  public Evento criarEvento(CriarEventoDTO dto) {
     String id = "E" + ++lastId;
     Evento e = new Evento(id, dto.titulo(), dto.descricao(), dto.data(), dto.local(), dto.capacidadeMaxima(), dto.precoBase(), dto.horarioInicio());
     eventos.add(e);
+    return e;
   }
 
   public List<Evento> getEventos() {

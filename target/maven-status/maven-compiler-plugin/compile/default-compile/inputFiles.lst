@@ -7,6 +7,7 @@
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/cadastros/CadastroVendas.java
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/consultas/MetodoConsultaEventos.java
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/consultas/MetodoEventosFuturos.java
+/home/gabe/src/TF_POO/src/main/java/com/gabeefranco/consultas/MetodoEventosRealizados.java
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/dto/CriarEventoDTO.java
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/dto/CriarIngressoDTO.java
 /home/gabe/src/TF_POO/src/main/java/com/gabeefranco/dto/CriarVendaDTO.java

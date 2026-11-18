@@ -1,11 +1,19 @@
 package com.gabeefranco.ui;
 
+import java.math.BigDecimal;
+
+import com.gabeefranco.Sistema;
+import com.gabeefranco.dto.CriarEventoDTO;
+import com.gabeefranco.entidades.Evento;
+import com.gabeefranco.entidades.Promocao;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
@@ -54,7 +62,6 @@ public class CadastroEventoView extends VerticalLayout {
     private void registrarOuvintes() {
         salvar.addClickListener(e -> salvar());
         limpar.addClickListener(e -> limpar());
-        // TODO: validação imediata campo a campo (ex.: limite promocional <= capacidade).
     }
 
     private void montarTela() {
@@ -70,8 +77,43 @@ public class CadastroEventoView extends VerticalLayout {
     }
 
     private void salvar() {
-        // TODO: ler os campos, montar o CriarEventoDTO (e a Promocao), chamar o domínio,
-        //       mostrar Notification de sucesso ou erro (limpar só se der certo).
+        if(titulo.getValue() == null || titulo.getValue().strip().equals("")) {
+          Notification.show("Título não informado", 4000, Position.TOP_CENTER);
+          return;
+        }
+        if(local.getValue() == null || titulo.getValue().strip().equals("")) {
+          Notification.show("Local não informado", 4000, Position.TOP_CENTER);
+          return;
+        }
+        if(data.getValue() == null) {
+          Notification.show("Data não informada", 4000, Position.TOP_CENTER);
+          return;
+        }
+        if(horarioInicio.getValue() == null) {
+          Notification.show("Horario de inicio não informado", 4000, Position.TOP_CENTER);
+          return;
+        }
+        if(capacidade.getValue() == null) {
+          Notification.show("Capacidade máxima não informada", 4000, Position.TOP_CENTER);
+          return;
+        }
+        if(precoBase.getValue() == null || precoBase.getValue().equals(new BigDecimal(0.0f))) {
+          Notification.show("Preço-base não informado", 4000, Position.TOP_CENTER);
+          return;
+        }
+
+        CriarEventoDTO dto = new CriarEventoDTO(titulo.getValue(), descricao.getValue(), local.getValue(), data.getValue(), horarioInicio.getValue(), capacidade.getValue(), precoBase.getValue());
+        Evento e = Sistema.getCadastroEventos().criarEvento(dto);
+        
+        if(descontoPromocional.getValue() != null && descontoPromocional.getValue() != 0
+            && descontoPromocional.getValue() < 100 && limitePromocional.getValue() != null
+            && limitePromocional.getValue() != 0) {
+          Promocao p = new Promocao(e.id(), descontoPromocional.getValue(), limitePromocional.getValue());
+          Sistema.getCadastroPromocoes().criarPromocao(p);   
+           
+        }
+
+        // TODO: navegar para tela deste evento criado, quando EventoView estiver finalizada  
     }
 
     private void limpar() {

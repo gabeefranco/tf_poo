@@ -2,6 +2,11 @@ package com.gabeefranco.ui;
 
 import java.util.List;
 
+import com.gabeefranco.consultas.MetodoConsultaEventos;
+import com.gabeefranco.consultas.MetodoEventosFuturos;
+import com.gabeefranco.consultas.MetodoEventosRealizados;
+import com.gabeefranco.Sistema;
+import com.gabeefranco.cadastros.CadastroEventos;
 import com.gabeefranco.entidades.Evento;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -16,21 +21,15 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-/**
- * Funcionalidades 1, 6 e 8 (eventos futuros/passados, filtro por período ou local).
- * Clicar em um evento abre a tela do evento ({@link EventoView}).
- */
 @Route(value = "", layout = LayoutPrincipal.class)
 @PageTitle("Eventos")
 public class EventosView extends VerticalLayout {
 
-    // Filtros
     private final ComboBox<String> filtroSituacao = new ComboBox<>("Situação");
     private final TextField filtroLocal = new TextField("Local");
     private final DatePicker filtroInicio = new DatePicker("De");
     private final DatePicker filtroFim = new DatePicker("Até");
 
-    // Lista
     private final Grid<Evento> grid = new Grid<>(Evento.class, false);
     private final Span totalEncontrado = new Span("0 evento(s)");
 
@@ -43,8 +42,8 @@ public class EventosView extends VerticalLayout {
     private void configurarComponentes() {
         setSizeFull();
 
-        filtroSituacao.setItems("Todos", "Futuros", "Realizados");
-        filtroSituacao.setValue("Todos");
+        filtroSituacao.setItems("Futuros", "Realizados");
+        filtroSituacao.setValue("Futuros");
         filtroLocal.setValueChangeMode(ValueChangeMode.LAZY);
         filtroLocal.setClearButtonVisible(true);
         filtroInicio.setClearButtonVisible(true);
@@ -80,9 +79,22 @@ public class EventosView extends VerticalLayout {
     }
 
     private void atualizarGrid() {
-        // TODO: chamar a consulta do domínio com situação (todos/futuros/realizados),
-        //       local e período (filtroInicio/filtroFim); eventos futuros ordenados por data.
-        List<Evento> encontrados = List.of();
+        CadastroEventos cadastro = Sistema.getCadastroEventos();
+        MetodoConsultaEventos metodo;
+        List<Evento> encontrados;
+        switch(filtroSituacao.getValue()) {
+          case "Realizados":
+            metodo = new MetodoEventosRealizados(filtroLocal.getValue(), filtroInicio.getValue(), filtroFim.getValue());
+            encontrados = cadastro.consultaEventos(metodo);
+            break;
+          case "Futuros":
+            metodo = new MetodoEventosFuturos(filtroLocal.getValue(), filtroInicio.getValue(), filtroFim.getValue());
+            encontrados = cadastro.consultaEventos(metodo);
+            break;
+          default:
+            encontrados = cadastro.getEventos();
+        }
+      
         grid.setItems(encontrados);
         totalEncontrado.setText(encontrados.size() + " evento(s)");
     }

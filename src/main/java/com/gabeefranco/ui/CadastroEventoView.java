@@ -16,7 +16,6 @@ import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-/** Funcionalidade 2: cadastrar evento, incluindo parâmetros da modalidade promocional. */
 @Route(value = "novo-evento", layout = LayoutPrincipal.class)
 @PageTitle("Novo evento")
 public class CadastroEventoView extends VerticalLayout {
@@ -29,7 +28,6 @@ public class CadastroEventoView extends VerticalLayout {
     private final IntegerField capacidade = new IntegerField("Capacidade máxima");
     private final BigDecimalField precoBase = new BigDecimalField("Preço-base (R$)");
 
-    // Parâmetros da modalidade promocional
     private final IntegerField descontoPromocional = new IntegerField("Desconto promocional (%)");
     private final IntegerField limitePromocional = new IntegerField("Limite de ingressos promocionais");
 

@@ -1,4 +1,4 @@
-package com.gabeefranco;
+package com.gabeefranco.consultas;
 
 import java.util.List;
 

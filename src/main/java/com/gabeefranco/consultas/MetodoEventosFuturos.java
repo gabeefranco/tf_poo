@@ -6,11 +6,32 @@ import java.util.List;
 import com.gabeefranco.entidades.Evento;
 
 public class MetodoEventosFuturos implements MetodoConsultaEventos {
+  private String local;
+  private LocalDate de, ate;
+
+  public MetodoEventosFuturos(String local, LocalDate de, LocalDate ate) {
+    this.local = local;
+    this.de = de;
+    this.ate = ate;
+  }
 
 	@Override
 	public List<Evento> consulta(List<Evento> dados) {
     LocalDate agora = LocalDate.now();
-    return dados.stream().filter(e -> e.data().isAfter(agora)).toList();
+    return dados.stream().filter(e -> {
+      boolean filtro = e.data().isAfter(agora);
+      if(local != null && !local.equals("")) {
+        filtro = filtro && e.local().toLowerCase().contains(local.toLowerCase());
+      }
+      if(de != null) {
+        filtro = filtro && e.data().isAfter(de);
+      }
+      if(ate != null) {
+        filtro = filtro && e.data().isBefore(ate);
+      }
+
+      return filtro;
+    }).sorted((e1, e2) -> e1.data().compareTo(e2.data())).toList();
 	}
   
   

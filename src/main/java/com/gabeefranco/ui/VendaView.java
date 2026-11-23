@@ -3,6 +3,8 @@ package com.gabeefranco.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gabeefranco.Sistema;
+import com.gabeefranco.consultas.MetodoEventosFuturos;
 import com.gabeefranco.dto.CriarIngressoDTO;
 import com.gabeefranco.entidades.Evento;
 import com.vaadin.flow.component.button.Button;
@@ -56,7 +58,7 @@ public class VendaView extends VerticalLayout {
     private void configurarComponentes() {
         evento.setItemLabelGenerator(Evento::titulo);
         evento.setWidth("350px");
-        // TODO: carregar os eventos disponíveis para venda (futuros) em evento.setItems(...)
+        evento.setItems(Sistema.getCadastroEventos().consultaEventos(new MetodoEventosFuturos(null, null, null)));
 
         modalidade.setItems("INTEIRA", "MEIA_ENTRADA", "VIP", "PROMOCIONAL");
         participanteCpf.setMaxLength(11);

@@ -2,7 +2,14 @@ package com.gabeefranco.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.math.BigDecimal;
+import com.gabeefranco.Sistema;
+import com.gabeefranco.entidades.Ingresso;
+import com.gabeefranco.entidades.IngressoInteira;
+import com.gabeefranco.entidades.IngressoMeia;
+import com.gabeefranco.entidades.IngressoPromocional;
+import com.gabeefranco.entidades.IngressoVip;
+import com.gabeefranco.entidades.Promocao;
 import com.gabeefranco.Sistema;
 import com.gabeefranco.consultas.MetodoEventosFuturos;
 import com.gabeefranco.dto.CriarIngressoDTO;
@@ -69,6 +76,7 @@ public class VendaView extends VerticalLayout {
         gridCesta.addColumn(CriarIngressoDTO::nomeParticipante).setHeader("Participante").setAutoWidth(true);
         gridCesta.addColumn(CriarIngressoDTO::cpfParticipante).setHeader("CPF").setAutoWidth(true);
         gridCesta.addColumn(CriarIngressoDTO::justificativa).setHeader("Justificativa").setAutoWidth(true);
+        gridCesta.addColumn(this::calcularPreco).setHeader("Preço (R$)").setAutoWidth(true);
         // TODO: coluna "Preço" com o preço calculado polimorficamente (Ingresso.calcularPreco).
         gridCesta.addComponentColumn(item -> {
             Button remover = new Button(VaadinIcon.TRASH.create(), e -> remover(item));
@@ -152,4 +160,21 @@ public class VendaView extends VerticalLayout {
         // TODO: recalcular o resumo (quantidade e valor total) e o estado dos botões.
         resumo.setText(cesta.size() + " ingresso(s) na venda");
     }
+    private BigDecimal calcularPreco(CriarIngressoDTO dto) {
+        Evento e = evento.getValue();
+        Ingresso ingresso;
+
+        switch (dto.modalidade()) {
+            case "INTEIRA" -> ingresso = new IngressoInteira(null, null, dto.nomeParticipante(), dto.cpfParticipante());
+            case "VIP" -> ingresso = new IngressoVip(null, null, dto.nomeParticipante(), dto.cpfParticipante());
+            case "MEIA_ENTRADA" -> ingresso = new IngressoMeia(null, null, dto.nomeParticipante(), dto.cpfParticipante(), dto.justificativa());
+            case "PROMOCIONAL" -> {
+                Promocao promocao = Sistema.getCadastroPromocoes().getPromocaoPorEvento(e.id());
+                ingresso = new IngressoPromocional(null, null, dto.nomeParticipante(), dto.cpfParticipante(), promocao.descontoPromocionalPercentual());
+            }
+            default -> throw new IllegalArgumentException("Modalidade inválida");
+        }
+
+        return ingresso.calcularPreco(e.precoBase());
+}
 }

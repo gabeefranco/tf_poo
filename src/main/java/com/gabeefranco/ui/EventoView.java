@@ -1,9 +1,11 @@
 package com.gabeefranco.ui;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.gabeefranco.Sistema;
 import com.gabeefranco.cadastros.CadastroVendas;
+import com.gabeefranco.entidades.ArrecadacaoModalidade;
 import com.gabeefranco.entidades.Evento;
 import com.gabeefranco.entidades.Ingresso;
 import com.gabeefranco.entidades.Promocao;
@@ -44,30 +46,22 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
     private final Span detalheDataLocal = new Span();
     private final Span detalheCapacidade = new Span();
     private final Span detalhePreco = new Span();
-    private final Span detalhePromocao = new Span();
 
     private final TabSheet abas = new TabSheet();
 
-    // Aba "Vendas": disponibilidade, vendas e ingressos
+    // Aba vendas
     private final Span disponibilidadeGeral = new Span();
     private final Span disponibilidadePromocional = new Span();
     private final Grid<Venda> gridVendas = new Grid<>(Venda.class, false);
     private final Grid<Ingresso> gridIngressos = new Grid<>(Ingresso.class, false);
 
-    // Aba "Consultas gerenciais"
-    // Quantidade de ingressos vendidos no evento
+    // Aba consultas gerenciais
     private final Span ingressosVendidos = new Span();
-    // Arrecadação total do evento
     private final Span arrecadacao = new Span();
-    // Percentual de ocupação do evento
     private final Span ocupacao = new Span();
-    // Modalidade mais vendida no evento
     private final Span modalidadeMaisVendida = new Span();
-    // Quantidade de participantes com direito à entrada antecipada no evento
     private final Span entradaAntecipada = new Span();
-    // Arrecadação agrupada por modalidade
-    // TODO: trocar o tipo Object pelo tipo real devolvido pela consulta do domínio.
-    private final Grid<Object> gridArrecadacaoPorModalidade = new Grid<>();
+    private final Grid<ArrecadacaoModalidade> gridArrecadacaoPorModalidade = new Grid<ArrecadacaoModalidade>();
 
     public EventoView() {
         configurarComponentes();
@@ -104,7 +98,7 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
 
     private void montarTela() {
         VerticalLayout detalhes = new VerticalLayout(detalheDescricao, detalheDataLocal, detalheCapacidade,
-                detalhePreco, detalhePromocao);
+                detalhePreco);
         detalhes.setPadding(false);
         detalhes.setSpacing(false);
 
@@ -141,8 +135,12 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
 
     private void mostrarEvento(Evento evento) {
         titulo.setText(evento.titulo());
-        // TODO: preencher os detalhes com os dados do evento e os parâmetros da promoção
-        //       (desconto e cota).
+
+        detalhePreco.setText("Preço-base: " + evento.precoBase());
+        detalheDataLocal.setText("Dia " + evento.data().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " em " + evento.local());
+        detalheDescricao.setText(evento.descricao());
+        detalheCapacidade.setText("Capacidade máxima: " + evento.capacidade());
+
         atualizarVendas(evento);
         atualizarConsultas(evento);
     }
@@ -173,14 +171,13 @@ public class EventoView extends VerticalLayout implements HasUrlParameter<String
     }
 
     private void atualizarIngressos(Venda venda) {
-        // TODO: buscar os ingressos da venda selecionada (null = nenhuma linha selecionada).
-        gridIngressos.setItems();
+        gridIngressos.setItems(Sistema.getCadastroIngressos().getIngressos(venda.id()));
     }
 
     private void atualizarConsultas(Evento evento) {
         // TODO: preencher as consultas gerenciais do evento: ingressos vendidos, arrecadação total,
         //       percentual de ocupação, modalidade mais vendida, participantes com entrada antecipada
         //       e arrecadação agrupada por modalidade (gridArrecadacaoPorModalidade.setItems(...)).
-        modalidadeMaisVendida.setText("");
+        modalidadeMaisVendida.setText("modalidade mais vendida");
     }
 }

@@ -10,7 +10,6 @@ import com.gabeefranco.entidades.IngressoInteira;
 import com.gabeefranco.entidades.IngressoMeia;
 import com.gabeefranco.entidades.IngressoPromocional;
 import com.gabeefranco.entidades.IngressoVip;
-import com.gabeefranco.entidades.Venda;
 
 public class CadastroIngressos {
   private List<Ingresso> ingressos;
